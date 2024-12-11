@@ -200,11 +200,11 @@ body{
       const marcados = Array.from(checkboxes).filter(checkbox => checkbox.checked).length; // Quantidade marcadas
       const faltam = total - marcados; // Quantidade faltando
 
-      // Atualiza o texto do contador
-      contador.textContent = faltam > 0
-        ? Faltam ${faltam} opção(ões) para marcar.
-: "Todas as opções foram marcadas!";
-    }
+     contador.textContent = faltam > 0
+    ? `Faltam ${faltam} opção(ões) para marcar.`
+    : "Todas as opções foram marcadas!";
+
+
 
     // Adiciona o evento 'change' em cada checkbox
     checkboxes.forEach(checkbox => {
@@ -220,13 +220,15 @@ body{
   <!--alerta botão não-->
       <script>
 
-      document.querySelector("#choice").addEventListener("click", function (e) {
+      document.querySelector("#minhaCheckbox").addEventListener("click", function (e) {
         alert("click")
       })
 
       const btn = document.querySelector("button");
-      btn.addEventlistener('click', function(){
-    alert= (" erro, clique no outro botão, obrigado!")  });
+btn.addEventListener("click", function () {
+    alert("Erro, clique no outro botão, obrigado!");
+});
+
 
      </script>
 
