@@ -108,7 +108,7 @@ input{
     margin: 0cm;
     margin-bottom: 14cm;
     margin-top: 2px;
-    margin-left: 10px;
+    margin-left: 4px;
     width: 20px;
     height: 13px;
  
@@ -132,8 +132,9 @@ body{
     background-color: rgb(5, 249, 5);
     display: flex;
     flex-direction: column;
-    justify-content:flex-start;
+    flex-wrap: wrap;
     align-items: center;
+    align-content: stretch;
     margin: 9px;
     padding: 5px;
 }
@@ -200,11 +201,11 @@ body{
       const marcados = Array.from(checkboxes).filter(checkbox => checkbox.checked).length; // Quantidade marcadas
       const faltam = total - marcados; // Quantidade faltando
 
-     contador.textContent = faltam > 0
-    ? `Faltam ${faltam} opção(ões) para marcar.`
-    : "Todas as opções foram marcadas!";
-
-
+      // Atualiza o texto do contador
+      contador.textContent = faltam > 0
+       ? `Faltam ${faltam} opção(ões) para marcar.`
+      : "Todas as opções foram marcadas!";
+    }
 
     // Adiciona o evento 'change' em cada checkbox
     checkboxes.forEach(checkbox => {
@@ -220,15 +221,13 @@ body{
   <!--alerta botão não-->
       <script>
 
-      document.querySelector("#minhaCheckbox").addEventListener("click", function (e) {
+      document.querySelector("#choice").addEventListener("click", function (e) {
         alert("click")
       })
 
       const btn = document.querySelector("button");
-btn.addEventListener("click", function () {
-    alert("Erro, clique no outro botão, obrigado!");
-});
-
+      btn.addEventlistener('click', function(){
+    alert= (" erro, clique no outro botão, obrigado!")  });
 
      </script>
 
