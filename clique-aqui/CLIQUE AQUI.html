@@ -5,10 +5,123 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
   <title>Muito importante</title>
+  <style>
+    /* Estilo corrigido e otimizado */
+    body {
+      background-color: rgb(5, 249, 5);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px;
+      font-family: Arial, sans-serif;
+      color: black;
+    }
+
+    .glow-on-hover {
+      width: 320px;
+      height: 70px;
+      border: none;
+      margin: 15px;
+      color: #fff;
+      background: #111;
+      cursor: pointer;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .glow-on-hover:before {
+      content: '';
+      background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      background-size: 400%;
+      filter: blur(5px);
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      animation: glowing 20s linear infinite;
+      opacity: 0;
+      transition: opacity .3s ease-in-out;
+      border-radius: 10px;
+    }
+
+    .glow-on-hover:hover:before {
+      opacity: 1;
+    }
+
+    @keyframes glowing {
+      0% {
+        background-position: 0 0;
+      }
+
+      50% {
+        background-position: 400% 0;
+      }
+
+      100% {
+        background-position: 0 0;
+      }
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 20px;
+    }
+
+    span.mensagem {
+      font-size: 12px;
+      margin-left: 5px;
+    }
+
+    #contador {
+      font-size: 18px;
+      margin: 20px 0;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Programação do fim de semana!</h1>
+
+  <div>
+    <p id="contador">Faltam 4 opções para marcar.</p>
+  </div>
+
+  <label>
+    <input type="checkbox" class="minhaCheckbox" onclick="mostrarMensagem(this)" value="rolê com meu amor"> 1
+    <span class="mensagem"></span>
+    <input type="checkbox" class="minhaCheckbox" onclick="mostrarMensagem(this)" value="namorar com meu amor"> 2
+    <span class="mensagem"></span>
+    <input type="checkbox" class="minhaCheckbox" onclick="mostrarMensagem(this)" value="curtir uma festa com meu amor"> 3
+    <span class="mensagem"></span>
+    <input type="checkbox" class="minhaCheckbox" onclick="mostrarMensagem(this)" value="conhecer lugares diferentes com meu amor"> 4
+    <span class="mensagem"></span>
+  </label>
+
+  <div onmouseenter="exibeAlert(this)">
+    <button class="glow-on-hover" type="button" onclick="exibeAlert(this)">NÃO</button>
+  </div>
+
+  <div class="button">
+    <a href="https://x.com/i/status/1846979758581534855">
+      <button class="glow-on-hover" type="button" id="botaoSim" disabled>SIM</button>
+    </a>
+  </div>
 
   <script>
+    // Função para exibir mensagem ao marcar/desmarcar checkbox
     function mostrarMensagem(checkbox) {
       if (checkbox.checked) {
         alert("Você marcou a opção: " + checkbox.value);
@@ -16,275 +129,42 @@
         alert("Você desmarcou a opção: " + checkbox.value);
       }
     }
-  </script>
-  
-<style>
-  .glow-on-hover {
-    width: 320px;
-    height: 70px;
-    border: none;
-    margin: 15px;
-    margin-top: auto;
-    margin-bottom: 10px;
-    outline: none;
-    color: #fff;
-    background: #111;
-    cursor: pointer;
-    position: relative;
-    z-index: 0;
-    border-radius: 10px;
-}
 
-.glow-on-hover:before {
-    content: '';
-    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
-    position: absolute;
-    top: -2px;
-    left:-2px;
-    background-size: 400%;
-    z-index: -1;
-    filter: blur(5px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    animation: glowing 20s linear infinite;
-    opacity: 0;
-    transition: opacity .3s ease-in-out;
-    border-radius: 10px;
-}
+    // Função para habilitar/desabilitar botão "SIM"
+    document.addEventListener("DOMContentLoaded", function () {
+      const checkboxes = document.querySelectorAll(".minhaCheckbox");
+      const botaoSim = document.getElementById("botaoSim");
+      const contador = document.getElementById("contador");
 
-.glow-on-hover:active {
-    color: #000
-}
+      function atualizarContagem() {
+        const total = checkboxes.length;
+        const marcados = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+        const faltam = total - marcados;
 
-.glow-on-hover:active:after {
-    background: transparent;
-}
+        contador.textContent = faltam > 0
+          ? `Faltam ${faltam} opção(ões) para marcar.`
+          : "Todas as opções foram marcadas!";
 
-.glow-on-hover:hover:before {
-    opacity: 1;
-}
+        botaoSim.disabled = faltam > 0;
+      }
 
-.glow-on-hover:after {
-    z-index: -1;
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #111;
-    left: 0;
-    top: 0;
-    border-radius: 10px;
-}
-
-
-@keyframes glowing {
-    0% { background-position: 0 0; }
-    50% { background-position: 400% 0; }
-    100% { background-position: 0 0; }
-}
-    
-
-
-
-
-h1{
-    color: black;
-    padding: 57vh;
-    padding-bottom: 200px;
-    font-size: large;
-    font-family: arial;
-    width: 8cm;
-    height: -6cm;
-    align-items: center;
-    margin-top: -200px;
-    margin-left: 50px;
-
-    
-    
-}
-
-input{
-    padding: -7cm;
-    margin: 0cm;
-    margin-bottom: 14cm;
-    margin-top: 2px;
-    margin-left: 10px;
-    width: 20px;
-    height: 13px;
- 
-}
-
-
-div{ 
-    margin: 40px;
-    margin-top: -140px;
-    margin-bottom: 20px;
-    margin-left: 50px;
-    justify-items: center;
-    align-items: center;
-    height: -0.9cm;
-    width: -0.5cm;
-
-}
-
-
-body{
-    background-color: rgb(5, 249, 5);
-    display: flex;
-    flex-direction: column;
-    justify-content:flex-start;
-    align-items: center;
-    margin: 9px;
-    padding: 5px;
-}
-
-</style>
-</head>
-
-  
-<body>
-  <h1> Programação do fim de semana! </h1>
-
-  <div>
-    <p id="contador">Faltam 4 opções para marcar.</p>
-  </div>
-
-     <!---caixa de dialogo (checkbox)-->
-     <label>
-      
-      <input type="checkbox" class="minhaCheckbox" onclick="mostrarMensagem(this)" value="rolê com meu amor"> 1
-      <span class="mensagem"></span>
-      <input type="checkbox" class="minhaCheckbox" onclick="mostrarMensagem(this)" value="namorar com meu amor"> 2
-      <span class="mensagem"></span>
-      <input type="checkbox" class="minhaCheckbox" onclick="mostrarMensagem(this)" value="curtir uma festa com meu amor"> 3
-      <span class="mensagem"></span>
-      <input type="checkbox" class="minhaCheckbox" onclick="mostrarMensagem(this)" value="conhecer lugares diferentes com meu amor"> 4
-      <span class="mensagem"></span>
-
-    </label>
-
-  
-
-    <!--Exibição de texto ao lado da check box-->
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        const checkboxes = document.querySelectorAll(".minhaCheckbox");
-    
-        checkboxes.forEach(checkbox => {
-          checkbox.addEventListener("change", function() {
-            const mensagem = this.nextElementSibling; // O próximo elemento <span> ao lado da checkbox
-            if (this.checked) {
-              mensagem.textContent = "selecionada!"; // Define a mensagem ao marcar
-              mensagem.style.color = "green"; // Altere a cor, se necessário
-            } else {
-              mensagem.textContent = "desmarcada!"; // Mensagem ao desmarcar
-              mensagem.style.color = "red";
-
-            // Remove a mensagem após 3 segundos (3000 milissegundos)
-            setTimeout(() => {
-            mensagem.textContent = ""; // Limpa o texto
-          }, 3000);
-        }
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener("change", atualizarContagem);
       });
+
+      atualizarContagem();
     });
-  });
-</script>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const checkboxes = document.querySelectorAll(".minhaCheckbox");
-    const contador = document.getElementById("contador");
+    // Função para exibir alerta e mover botão "NÃO"
+    function exibeAlert(button) {
+      alert("Essa não é a resposta certa!");
 
-    function atualizarContagem() {
-      const total = checkboxes.length; // Número total de checkboxes
-      const marcados = Array.from(checkboxes).filter(checkbox => checkbox.checked).length; // Quantidade marcadas
-      const faltam = total - marcados; // Quantidade faltando
+      const marginX = Math.floor(Math.random() * 300);
+      const marginY = Math.floor(Math.random() * 300);
 
-      // Atualiza o texto do contador
-      contador.textContent = faltam > 0
-        ? `Faltam ${faltam} opção(ões) para marcar.`
-        : "Todas as opções foram marcadas!";
+      button.style.margin = `${marginY}px ${marginX}px`;
     }
-
-    // Adiciona o evento 'change' em cada checkbox
-    checkboxes.forEach(checkbox => {
-      checkbox.addEventListener("change", atualizarContagem);
-    });
-
-    // Atualiza a contagem ao carregar a página
-    atualizarContagem();
-  });
-</script>
-
-
-  <!--alerta botão não-->
-      <script>
-
-      document.querySelector("#choice").addEventListener("click", function (e) {
-        alert("click")
-      })
-
-      const btn = document.querySelector("button");
-      btn.addEventlistener('click', function(){
-    alert= (" erro, clique no outro botão, obrigado!")  });
-
-     </script>
-
-
-
- <!--botão não-->
- <div onmouseenter= "onclick = exibeAlert" >
-  <div class="button"> <button class="glow-on-hover" type="button" onclick= "exibeAlert">NÃO</button>
-  </div>
-</div>
-
-
- <!--botão sim-->
- <div class="container">
-  <div class="child"></div>
-  <div class="button"> 
-    <a href="https://x.com/i/status/1846979758581534855">
-      <button class="glow-on-hover" type="button" id="botaoSim" disabled>SIM</button>
-    </a>
-  </div>
-</div>
-
-
-<!--alerta botão (sim)-->
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const checkboxes = document.querySelectorAll(".minhaCheckbox");
-    const botaoSim = document.getElementById("botaoSim");
-
-    // Função para verificar se todos os checkboxes estão marcados
-    function verificarCheckboxes() {
-      const todosMarcados = Array.from(checkboxes).every(checkbox => checkbox.checked);
-      botaoSim.disabled = !todosMarcados; // Habilita/desabilita o botão
-    }
-
-    // Adiciona o evento de mudança em cada checkbox
-    checkboxes.forEach(checkbox => {
-      checkbox.addEventListener("change", verificarCheckboxes);
-    });
-  });
-</script>
-
-
- <!---java botão--->
-<script>
-  function exibeAlert(x) {
-  alert("essa não é a resposta certa!") 
-
-      marginX = Math.floor(Math.random()*300)
-      marginY = Math.floor(Math.random()*300)
-
-      x.style.margin = marginY.toString() + 'px ' + marginX.toString() + 'px'
-  }
-
-
-</script>
-
-  
+  </script>
 </body>
 
 </html>
