@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Muito importante</title>
+
+  <script>
+    function mostrarMensagem(checkbox) {
+      if (checkbox.checked) {
+        alert("Você marcou a opção: " + checkbox.value);
+      } else {
+        alert("Você desmarcou a opção: " + checkbox.value);
+      }
+    }
+  </script>
+  
+
+</head>
+
+<body>
+
+
+  <h1> Programação do fim de semana! </h1>
+
+  <div>
+    <p id="contador">Faltam 4 opções para marcar.</p>
+  </div>
+
+     <!---caixa de dialogo (checkbox)-->
+     <label>
+      
+      <input type="checkbox" class="minhaCheckbox" onclick="mostrarMensagem(this)" value="rolê com meu amor"> 1
+      <span class="mensagem"></span>
+      <input type="checkbox" class="minhaCheckbox" onclick="mostrarMensagem(this)" value="namorar com meu amor"> 2
+      <span class="mensagem"></span>
+      <input type="checkbox" class="minhaCheckbox" onclick="mostrarMensagem(this)" value="curtir uma festa com meu amor"> 3
+      <span class="mensagem"></span>
+      <input type="checkbox" class="minhaCheckbox" onclick="mostrarMensagem(this)" value="conhecer lugares diferentes com meu amor"> 4
+      <span class="mensagem"></span>
+
+    </label>
+
+  
+
+    <!--Exibição de texto ao lado da check box-->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const checkboxes = document.querySelectorAll(".minhaCheckbox");
+    
+        checkboxes.forEach(checkbox => {
+          checkbox.addEventListener("change", function() {
+            const mensagem = this.nextElementSibling; // O próximo elemento <span> ao lado da checkbox
+            if (this.checked) {
+              mensagem.textContent = "selecionada!"; // Define a mensagem ao marcar
+              mensagem.style.color = "green"; // Altere a cor, se necessário
+            } else {
+              mensagem.textContent = "desmarcada!"; // Mensagem ao desmarcar
+              mensagem.style.color = "red";
+
+            // Remove a mensagem após 3 segundos (3000 milissegundos)
+            setTimeout(() => {
+            mensagem.textContent = ""; // Limpa o texto
+          }, 3000);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const checkboxes = document.querySelectorAll(".minhaCheckbox");
+    const contador = document.getElementById("contador");
+
+    function atualizarContagem() {
+      const total = checkboxes.length; // Número total de checkboxes
+      const marcados = Array.from(checkboxes).filter(checkbox => checkbox.checked).length; // Quantidade marcadas
+      const faltam = total - marcados; // Quantidade faltando
+
+      // Atualiza o texto do contador
+      contador.textContent = faltam > 0
+        ? `Faltam ${faltam} opção(ões) para marcar.`
+        : "Todas as opções foram marcadas!";
+    }
+
+    // Adiciona o evento 'change' em cada checkbox
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener("change", atualizarContagem);
+    });
+
+    // Atualiza a contagem ao carregar a página
+    atualizarContagem();
+  });
+</script>
+
+
+  <!--alerta botão não-->
+      <script>
+
+      document.querySelector("#choice").addEventListener("click", function (e) {
+        alert("click")
+      })
+
+      const btn = document.querySelector("button");
+      btn.addEventlistener('click', function(){
+    alert= (" erro, clique no outro botão, obrigado!")  });
+
+     </script>
+
+
+
+ <!--botão não-->
+ <div onmouseenter= "onclick = exibeAlert" >
+  <div class="button"> <button class="glow-on-hover" type="button" onclick= "exibeAlert">NÃO</button>
+  </div>
+</div>
+
+
+ <!--botão sim-->
+ <div class="container">
+  <div class="child"></div>
+  <div class="button"> 
+    <a href="https://x.com/i/status/1846979758581534855">
+      <button class="glow-on-hover" type="button" id="botaoSim" disabled>SIM</button>
+    </a>
+  </div>
+</div>
+
+
+<!--alerta botão (sim)-->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const checkboxes = document.querySelectorAll(".minhaCheckbox");
+    const botaoSim = document.getElementById("botaoSim");
+
+    // Função para verificar se todos os checkboxes estão marcados
+    function verificarCheckboxes() {
+      const todosMarcados = Array.from(checkboxes).every(checkbox => checkbox.checked);
+      botaoSim.disabled = !todosMarcados; // Habilita/desabilita o botão
+    }
+
+    // Adiciona o evento de mudança em cada checkbox
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener("change", verificarCheckboxes);
+    });
+  });
+</script>
+
+
+ <!---java botão--->
+<script>
+  function exibeAlert(x) {
+  alert("essa não é a resposta certa!") 
+
+      marginX = Math.floor(Math.random()*300)
+      marginY = Math.floor(Math.random()*300)
+
+      x.style.margin = marginY.toString() + 'px ' + marginX.toString() + 'px'
+  }
+
+
+</script>
+
+  
+</body>
+
+</html>
