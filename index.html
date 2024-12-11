@@ -129,7 +129,7 @@ div{
 
 
 body{
-    background-color: rgb(5, 249, 5);
+    background-color: rgba(72, 255, 0, 0.845);
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -175,10 +175,10 @@ body{
           checkbox.addEventListener("change", function() {
             const mensagem = this.nextElementSibling; // O próximo elemento <span> ao lado da checkbox
             if (this.checked) {
-              mensagem.textContent = ":)"; // Define a mensagem ao marcar
-              mensagem.style.color = "white"; // Altere a cor, se necessário
+              mensagem.textContent = "selecionada!"; // Define a mensagem ao marcar
+              mensagem.style.color = "green"; // Altere a cor, se necessário
             } else {
-              mensagem.textContent = ":("; // Mensagem ao desmarcar
+              mensagem.textContent = "desmarcada!"; // Mensagem ao desmarcar
               mensagem.style.color = "red";
 
             // Remove a mensagem após 3 segundos (3000 milissegundos)
@@ -193,28 +193,51 @@ body{
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const checkboxes = document.querySelectorAll(".minhaCheckbox");
-    const contador = document.getElementById("contador");
+  const checkboxes = document.querySelectorAll(".minhaCheckbox");
+  const contador = document.getElementById("contador");
 
-    function atualizarContagem() {
-      const total = checkboxes.length; // Número total de checkboxes
-      const marcados = Array.from(checkboxes).filter(checkbox => checkbox.checked).length; // Quantidade marcadas
-      const faltam = total - marcados; // Quantidade faltando
+  function atualizarContagem() {
+    const total = checkboxes.length; // Número total de checkboxes
+    const marcados = Array.from(checkboxes).filter(checkbox => checkbox.checked).length; // Quantidade marcadas
+    const faltam = total - marcados; // Quantidade faltando
 
-      // Atualiza o texto do contador
-      contador.textContent = faltam > 0
-       ? `Faltam ${faltam} opção(ões) para marcar.`
+    // Atualiza o texto do contador
+    contador.textContent = faltam > 0
+      ? `Faltam ${faltam} opção(ões) para marcar.`
       : "Todas as opções foram marcadas!";
-    }
+  }
 
-    // Adiciona o evento 'change' em cada checkbox
-    checkboxes.forEach(checkbox => {
-      checkbox.addEventListener("change", atualizarContagem);
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener("change", function () {
+      const mensagem = this.nextElementSibling; // O próximo elemento <span> ao lado da checkbox
+
+      if (this.checked) {
+        mensagem.textContent = ":)"; // Define a mensagem ao marcar
+        mensagem.style.color = "green"; // Define a cor, se necessário
+
+        // Remove a mensagem após 3 segundos
+        setTimeout(() => {
+          mensagem.textContent = ""; // Limpa o texto
+        }, 3000);
+      } else {
+        mensagem.textContent = ":("; // Mensagem ao desmarcar
+        mensagem.style.color = "red";
+
+        // Remove a mensagem após 3 segundos
+        setTimeout(() => {
+          mensagem.textContent = ""; // Limpa o texto
+        }, 3000);
+      }
+
+      // Atualiza a contagem após cada mudança
+      atualizarContagem();
     });
-
-    // Atualiza a contagem ao carregar a página
-    atualizarContagem();
   });
+
+  // Atualiza a contagem ao carregar a página
+  atualizarContagem();
+});
+
 </script>
 
 
